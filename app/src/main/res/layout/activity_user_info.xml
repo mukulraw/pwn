@@ -215,6 +215,7 @@
         android:padding="20dp"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:id="@+id/submit"
         android:textAllCaps="true"
 android:text="submit"
 
