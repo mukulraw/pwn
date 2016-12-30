@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_user_info"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context="com.example.mukul.pwn1.UserInfo">
+
+
+
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary">
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="Your Information"
+            android:textColor="#fff"
+            android:textSize="18sp"
+            />
+
+
+    </android.support.v7.widget.Toolbar>
+
+
+
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:cardUseCompatPadding="true"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="18dp"
+                android:gravity="center"
+                android:text="Please share some details about yourself"
+                android:textSize="16sp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#cdcdcd"
+                />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:textColor="@color/colorAccent"
+                android:text="Name"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@drawable/back"
+                android:hint="Your name*"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="18dp"
+                android:paddingBottom="18dp"
+                android:gravity="center_vertical"
+                android:textColorHint="#cdcdcd"
+                />
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:textColor="@color/colorAccent"
+                android:text="Email"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="18dp"
+                android:paddingBottom="18dp"
+                android:gravity="center_vertical"
+                android:background="@drawable/back"
+                android:hint="Your email (optional)"
+                android:textColorHint="#cdcdcd"
+                />
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:textColor="@color/colorAccent"
+                android:text="Phone"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="18dp"
+                android:paddingBottom="18dp"
+                android:gravity="center_vertical"
+                android:background="@drawable/back"
+                android:hint="Your phone number*"
+                android:textColorHint="#cdcdcd"
+                />
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:textColor="@color/colorAccent"
+                android:text="Gender"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="18dp"
+                android:paddingBottom="18dp"
+                android:gravity="center_vertical"
+                android:background="@drawable/back"
+                android:hint="MALE"
+                android:textColorHint="#cdcdcd"
+                />
+
+
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="18dp"
+                android:text="Thanks for all the above details."
+                android:textSize="16sp"
+                android:gravity="center"
+                />
+
+
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:padding="20dp"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+android:text="submit"
+
+        />
+
+
+
+</LinearLayout>
