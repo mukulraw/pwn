@@ -5,33 +5,89 @@ import android.content.Intent;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.Interpolator;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
+
 public class MainActivity extends AppCompatActivity {
 
-    RatingBar rat1 , rat2 , rat3 , rat4;
-    TextView text1 , text2 , text3 , text4;
 
     TextView complaint , submit;
+
+    RecyclerView grid;
+    GridLayoutManager manager;
+    List<Detail> list;
+    GridAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        rat1 = (RatingBar)findViewById(R.id.rating1);
-        rat2 = (RatingBar)findViewById(R.id.rating2);
-        rat3 = (RatingBar)findViewById(R.id.rating3);
-        rat4 = (RatingBar)findViewById(R.id.rating4);
+        list = new ArrayList<>();
 
-        text1 = (TextView)findViewById(R.id.text1);
-        text2 = (TextView)findViewById(R.id.text2);
-        text3 = (TextView)findViewById(R.id.text3);
-        text4 = (TextView)findViewById(R.id.text4);
+        manager = new GridLayoutManager(this , 1);
+        grid = (RecyclerView)findViewById(R.id.grid);
+
+
+        adapter = new GridAdapter(this , list);
+
+
+        grid.setLayoutManager(manager);
+        grid.setAdapter(adapter);
+
+
+
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://mrtechs.in/")
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        final interfaces cr = retrofit.create(interfaces.class);
+
+
+        Call<rateBean> call = cr.getRating();
+
+        call.enqueue(new Callback<rateBean>() {
+            @Override
+            public void onResponse(Call<rateBean> call, Response<rateBean> response) {
+
+
+                list = response.body().getDetail();
+
+                adapter.setGridData(list);
+
+
+
+            }
+
+            @Override
+            public void onFailure(Call<rateBean> call, Throwable throwable) {
+
+            }
+        });
+
+
+
+
 
 
         complaint = (TextView)findViewById(R.id.complaint);
@@ -85,42 +141,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        rat1.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
 
-                text1.setText(String.valueOf(ratingBar.getRating()));
-
-            }
-        });
-
-        rat2.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
-
-                text2.setText(String.valueOf(ratingBar.getRating()));
-
-            }
-        });
-
-        rat3.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
-
-                text3.setText(String.valueOf(ratingBar.getRating()));
-
-            }
-        });
-
-
-        rat4.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
-
-                text4.setText(String.valueOf(ratingBar.getRating()));
-
-            }
-        });
 
 
 
