@@ -9,6 +9,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -16,11 +17,13 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
 
     Context context;
     List<Detail> list = new ArrayList<>();
+    List<Bean> updatedList = new ArrayList<>();
 
     public GridAdapter(Context context , List<Detail> list)
     {
         this.context = context;
         this.list = list;
+        updatedList = Arrays.asList(new Bean[list.size()]);
     }
 
 
@@ -28,7 +31,14 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
     public void setGridData(List<Detail> list)
     {
         this.list = list;
+        updatedList = Arrays.asList(new Bean[list.size()]);
         notifyDataSetChanged();
+    }
+
+
+    public List<Bean> getUpdatedList()
+    {
+        return this.updatedList;
     }
 
 
@@ -43,11 +53,31 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
 
-        Detail item = list.get(position);
+        final Detail item = list.get(position);
 
         holder.head.setText(item.getName());
+
+
+
+
+        holder.ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+
+                holder.rating.setText(String.valueOf(ratingBar.getRating()));
+
+                Bean update = new Bean();
+
+                update.setId(item.getId());
+                update.setRating(String.valueOf(ratingBar.getRating()));
+
+                updatedList.set(position , update);
+
+            }
+        });
+
 
 
 

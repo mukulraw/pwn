@@ -20,6 +20,7 @@
         android:layout_height="300dp"
         android:background="@drawable/back"
         android:layout_margin="10dp"
+        android:id="@+id/query"
         android:hint="Your complaint goes here"
         android:gravity="start"
         android:padding="18dp"
