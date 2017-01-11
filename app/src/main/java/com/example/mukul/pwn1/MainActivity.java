@@ -1,7 +1,9 @@
 package com.example.mukul.pwn1;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.StrictMode;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     static app a;
     TabLayout tabs;
     //GridAdapter adapter;
+
 
 
     @Override
@@ -309,7 +312,7 @@ public class MainActivity extends AppCompatActivity {
 
         RecyclerView grid;
         RadioGroup group;
-        RadioButton btn;
+
         GridLayoutManager manager;
         List<Detail> list;
 
@@ -322,6 +325,8 @@ public class MainActivity extends AppCompatActivity {
 
 
             group = (RadioGroup)view.findViewById(R.id.radioGroup);
+
+
 
 
               list = new ArrayList<>();
@@ -415,6 +420,9 @@ public class MainActivity extends AppCompatActivity {
 
                             ratArray.put(obj);
 
+
+
+
                         }
                         else
                         {
@@ -431,25 +439,123 @@ public class MainActivity extends AppCompatActivity {
                     else
                     {
 
+                        String comm = "";
+
                         int selId = group.getCheckedRadioButtonId();
 
-                        RadioButton butt = (RadioButton)view.findViewById(selId);
+                        Log.d("asdasdselId" , String.valueOf(selId));
 
-                        String comm = butt.getText().toString();
+                        if (selId == R.id.radioButton)
+                        {
+                            comm = "Friend";
+                        }
+
+                        if (selId == R.id.radioButton2)
+                        {
+                            comm = "Advertisement";
+                        }
+
+                        if (selId == R.id.radioButton3)
+                        {
+                            comm = "Internet";
+                        }
+
+                        if (selId == R.id.radioButton4)
+                        {
+                            comm = "Random";
+                        }
+
+
+
+
 
 
 
                         try {
                             a.finalObj.put("feed" , comm);
                             a.finalObj.put("rating" , ratArray);
+
+                            Log.d("asdasdasdasdasdasd" , a.finalObj.toString());
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
 
 
-                        Intent intent = new Intent(getContext() , UserInfo.class);
-                        intent.putExtra("type" , "feed");
-                        startActivity(intent);
+                        //Intent intent = new Intent(getContext() , UserInfo.class);
+                        //intent.putExtra("type" , "feed");
+                        //startActivity(intent);
+
+
+                        final Dialog dialog = new Dialog(getActivity());
+
+                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+                        dialog.setCancelable(false);
+                        dialog.setContentView(R.layout.activity_user_info);
+
+                        dialog.show();
+
+                        final EditText name = (EditText)dialog.findViewById(R.id.name);
+                        final EditText email = (EditText)dialog.findViewById(R.id.email);
+                        final EditText phone = (EditText)dialog.findViewById(R.id.phone);
+
+
+                        TextView sub = (TextView)dialog.findViewById(R.id.submit);
+
+
+                        sub.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                String n = name.getText().toString();
+                                String e = email.getText().toString();
+                                String p = phone.getText().toString();
+
+                                Log.d("asda" , a.finalObj.toString());
+
+                                try {
+                                    a.finalObj.put("name", n);
+                                    a.finalObj.put("email", e);
+                                    a.finalObj.put("phone", p);
+                                } catch (JSONException e1) {
+                                    e1.printStackTrace();
+                                }
+
+
+                                Retrofit retrofit = new Retrofit.Builder()
+                                        .baseUrl("http://mrtechs.in/")
+                                        .addConverterFactory(ScalarsConverterFactory.create())
+                                        .addConverterFactory(GsonConverterFactory.create())
+                                        .build();
+
+                                final interfaces cr = retrofit.create(interfaces.class);
+
+                                Log.d("asdasdasdasd", a.finalObj.toString());
+
+                                Call<String> call = cr.setRating(a.finalObj.toString());
+
+                                call.enqueue(new Callback<String>() {
+                                    @Override
+                                    public void onResponse(Call<String> call, Response<String> response) {
+
+
+                                        dialog.dismiss();
+                                        Toast.makeText(getActivity() , "Thanks for your feedback" , Toast.LENGTH_SHORT).show();
+
+
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<String> call, Throwable t) {
+
+                                    }
+                                });
+
+
+                            }
+                        });
+
 
 
 
@@ -509,9 +615,81 @@ public class MainActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    Intent intent = new Intent(getContext() , UserInfo.class);
-                    intent.putExtra("type" , "comp");
-                    startActivity(intent);
+                    //Intent intent = new Intent(getContext() , UserInfo.class);
+                    //intent.putExtra("type" , "comp");
+                    //startActivity(intent);
+
+
+                    final Dialog dialog = new Dialog(getActivity());
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog.setCancelable(false);
+                    dialog.setContentView(R.layout.activity_user_info);
+
+                    dialog.show();
+
+
+
+                    final EditText name = (EditText)dialog.findViewById(R.id.name);
+                    final EditText email = (EditText)dialog.findViewById(R.id.email);
+                    final EditText phone = (EditText)dialog.findViewById(R.id.phone);
+
+
+                    TextView sub = (TextView)dialog.findViewById(R.id.submit);
+
+
+                    sub.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            String n = name.getText().toString();
+                            String e = email.getText().toString();
+                            String p = phone.getText().toString();
+
+
+                            try {
+                                a.obj2.put("name", n);
+                                a.obj2.put("email", e);
+                                a.obj2.put("phone", p);
+                            } catch (JSONException e1) {
+                                e1.printStackTrace();
+                            }
+
+
+                            Retrofit retrofit = new Retrofit.Builder()
+                                    .baseUrl("http://mrtechs.in/")
+                                    .addConverterFactory(ScalarsConverterFactory.create())
+                                    .addConverterFactory(GsonConverterFactory.create())
+                                    .build();
+
+                            final interfaces cr = retrofit.create(interfaces.class);
+
+                            Log.d("asdasdasdasd", a.obj2.toString());
+
+                            Call<String> call = cr.setComplaint(a.obj2.toString());
+
+                            call.enqueue(new Callback<String>() {
+                                @Override
+                                public void onResponse(Call<String> call, Response<String> response) {
+
+                                    dialog.dismiss();
+                                    Toast.makeText(getActivity() , "Thanks for your feedback" , Toast.LENGTH_SHORT).show();
+
+
+
+                                }
+
+                                @Override
+                                public void onFailure(Call<String> call, Throwable t) {
+
+                                }
+                            });
+
+
+                        }
+                    });
+
+
+
 
                 }
             });

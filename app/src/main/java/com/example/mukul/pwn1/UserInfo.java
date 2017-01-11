@@ -54,6 +54,7 @@ public class UserInfo extends AppCompatActivity {
                     String e = email.getText().toString();
                     String p = phone.getText().toString();
 
+                    Log.d("asda" , a.finalObj.toString());
 
                     try {
                         a.finalObj.put("name", n);
